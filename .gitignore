@@ -1,0 +1,6 @@
+web/uploads/*
+web/galleries/*
+cache/*
+log/*
+!cache/.gitkeep
+!log/.gitkeep
