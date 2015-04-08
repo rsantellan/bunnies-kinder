@@ -12,8 +12,8 @@ $media = mdMediaManager::getInstance(mdMediaManager::MIXED, $galeria)->load();
 foreach($media->getItems(mdMedia::$default) as $pic):
 ?>
                     <li>
-                        <a href="<?php echo $pic->getUrl(array(mdWebOptions::WIDTH => 301, mdWebOptions::CODE => mdWebCodes::ORIGINAL)) ?>" title="<?php echo $galeria->getTitulo() ?>"/>
-                            <img src="<?php echo $pic->getUrl(array(mdWebOptions::WIDTH => 115, mdWebOptions::HEIGHT => 75,  mdWebOptions::CODE => mdWebCodes::ORIGINAL)) ?>" width="115" height="75" alt="" />
+                        <a href="<?php echo $pic->getUrl(array(mdWebOptions::WIDTH => 800, mdWebOptions::HEIGHT => 800, mdWebOptions::CODE => mdWebCodes::CROPRESIZE)) ?>" title="<?php echo $galeria->getTitulo() ?>"/>
+                            <img src="<?php echo $pic->getUrl(array(mdWebOptions::WIDTH => 115, mdWebOptions::HEIGHT => 75,  mdWebOptions::CODE => mdWebCodes::CROPRESIZE)) ?>" width="115" height="75" alt="" />
                         </a>
                     </li>
 <?php endforeach; ?>
