@@ -22,8 +22,7 @@ class bkAuthActions extends sfActions {
 				$this->form->bind($postParameters);
 
 				if ($this->form->isValid()) {
-
-				  $user = $this->getUser()->validateLogin($postParameters['username'], $postParameters['password']);
+          $user = $this->getUser()->validateLogin($postParameters['username'], $postParameters['password']);
 	  
 				  $this->getUser()->signIn($user);
 	  
