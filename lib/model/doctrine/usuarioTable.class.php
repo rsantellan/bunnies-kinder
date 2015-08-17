@@ -51,6 +51,15 @@ class usuarioTable extends Doctrine_Table
                     ->execute();
     }
     
+    public function retrieveAllFutureStudents()
+    {
+        return $this
+                    ->createQuery('q')
+                    ->addWhere('q.egresado = 0')
+                    ->addWhere('q.anio_ingreso > ?', date('Y'))
+                    ->execute();
+    }
+    
     public function getMailsPadres()
     {
       $response = Doctrine_Query::create()

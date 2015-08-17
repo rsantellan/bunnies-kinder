@@ -132,7 +132,8 @@ class cuenta extends Basecuenta
     $montoAdeudado = $cuenta->getDiferencia();
     //var_dump($montoAdeudado);
     $lineDeuda = null;
-    
+    //die;
+    $sumaDeudasFacturasAnteriores = 0;
     foreach($facturas as $factura)
     {
       //var_dump($factura->getYear());
@@ -155,9 +156,21 @@ class cuenta extends Basecuenta
             $facturasDetailList[$cantidadFacturasDetalles] = new facturaFinalDetalle();
             $cantidadFacturasDetalles++;
           }
-          if($montoAdeudado > 0 && $montoAdeudado < $cuenta->getDiferencia())
+          /*
+          var_dump($montoAdeudado);
+          var_dump($cuenta->getDiferencia());
+          die;
+          */
+          if((((float)$factura->getTotal()) - ((float)$factura->getPagadodeltotal())) < $cuenta->getDiferencia())
           {
-            $precion = number_format( 1 * (int)($montoAdeudado), 0, ',', '.');
+            //($montoAdeudado - (((float)$factura->getTotal()) - ((float)$factura->getPagadodeltotal())))
+            //var_dump((float) $montoAdeudado);
+            //var_dump((float) $factura->getTotal());
+            //var_dump((float) $factura->getPagadodeltotal());
+            
+            $montoAdeudado = (float) $montoAdeudado - (((float)$factura->getTotal()) - ((float)$factura->getPagadodeltotal()));
+            //var_dump((float) $montoAdeudado);
+            $precion = number_format( 1 * (int) $montoAdeudado, 0, ',', '.');
             //var_dump($precion);
             $texto = utf8_decode(html_entity_decode(sprintf('Monto adeudado al %s', date('m-Y'))));
             $lineDeuda = array(
@@ -170,13 +183,27 @@ class cuenta extends Basecuenta
       }
       else
       {
-          $montoAdeudado = $montoAdeudado - ($factura->getTotal());
-          //var_dump($factura->getTotal());
-          //var_dump($factura->getPagadodeltotal());
-          //var_dump($montoAdeudado);
+          /*
+          $montoAdeudado = (float)$montoAdeudado - ((float)$factura->getPagadodeltotal());
+          $sumaDeudasFacturasAnteriores = (float) $sumaDeudasFacturasAnteriores + (((float)$factura->getTotal()) - ((float)$factura->getPagadodeltotal()));
+          
+          echo '<hr/>';
+          var_dump($factura->getYear());
+          var_dump($factura->getMonth());          
+          var_dump((float)$factura->getTotal() - (float)$factura->getPagadodeltotal());
+          var_dump($sumaDeudasFacturasAnteriores);
+        
+          
+          var_dump($factura->getTotal());
+          var_dump($factura->getPagadodeltotal());
+          var_dump($montoAdeudado);
+          echo '<hr/>';
+        */
       }
       
     }
+    //var_dump($sumaDeudasFacturasAnteriores);
+    //die;
     $maxPerPage = 30;
     $cantidadPaginas = $cantidadFacturasDetalles / $maxPerPage;
     $showPages = true;
